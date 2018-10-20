@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8"  author="CByte"></meta>
-        <link href="stylesheet5.css" rel="stylesheet"></link>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='stylesheet5.1.css') }}">-->
     <title>Test</title>
   </head>
   <body>
@@ -10,19 +10,24 @@
       <table class="one wrapper">
 	<tr>
 		<th>Name</th>
-		<th>Status</th>
+		<th>aktueller Status</th>
+		<th>Status ändern</th>
 	</tr>
+<form action="change_state" method="post">
 {% for schueler in liste %}
             <tr>
                 <td>{{ schueler['name'] }}</td>
-                <td> <input type="checkbox"{% if schueler["status"] == "anwesend"%}
-						checked
-					{% endif %}>
-						
-			</input>anwesend</td>
+                <td>{{ schueler['status'] }}</td>
+		<td><input type="checkbox" name="{{ schueler['name'] }}" {% if schueler['status'] == "anwesend"%}
+                                                checked
+                                        {% endif %}>
+		</td>
             </tr>
 {% endfor %}
+
        </table>
+<input type="submit" name="send" value="Senden"></input>
+</form>
     </p>
    </body>
 </html>
