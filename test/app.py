@@ -25,4 +25,4 @@ def all():
 	Schuelerliste = json.load(open("schuelerliste2.json"))
 	return render_template("mp1.html", liste=Schuelerliste)
 
-app.run(debug=True)
+app.run(debug=True, port=80)
