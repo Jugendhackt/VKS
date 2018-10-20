@@ -5,11 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-	return render_template("inde2.html")
-@app.route('/templates/')
-@app.route('/templates/<name>')
-def templates(name=None):
-	return render_template('mp.html', name=name)
+	return render_template("Schuelerliste.html")
 
 @app.route("/sek")
 def sek():
