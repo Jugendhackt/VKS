@@ -29,7 +29,7 @@ def all():
 @app.route("/change_state", methods={"POST"})
 def change():
 	schuelerliste = list(json.load(open("schuelerliste2.json")))
-	anwesende = request.form.keys()
+	anwesende = list(request.form.keys())
 	print(list(anwesende))
 	for i in range(len(schuelerliste)):
 		if schuelerliste[i]["name"] in anwesende:
