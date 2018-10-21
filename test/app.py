@@ -34,5 +34,7 @@ def change():
 	json.dump(schuelerliste, open("schuelerliste2.json", "w"))
 	return redirect("/lehrer")
 
-
+@app.route("/style.css")
+def style():
+	return render_template("style.css")
 app.run(debug=True,host="0.0.0.0", port=5000)
