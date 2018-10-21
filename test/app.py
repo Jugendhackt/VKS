@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect
 import json
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ def sek():
 		if schuelerliste[i]["status"] == "abwesend":
 			abwesende.append(schuelerliste[i])
 
-	return render_template("mp1.html", liste=abwesende)
+	return render_template("mp.html", liste=abwesende)
 
 @app.route("/lehrer")
 def all():
@@ -26,12 +26,13 @@ def all():
 def change():
 	schuelerliste = list(json.load(open("schuelerliste2.json")))
 	anwesende = list(request.form.keys())
-	print(list(anwesende))
 	for i in range(len(schuelerliste)):
 		if schuelerliste[i]["name"] in anwesende:
 			schuelerliste[i]["status"] = "anwesend"
 		else:
 			schuelerliste[i]["status"] = "abwesend"
 	json.dump(schuelerliste, open("schuelerliste2.json", "w"))
-	return jsonify(schuelerliste)
-app.run(debug=True,host="0.0.0.0", port=80)
+	return redirect("/lehrer")
+
+
+app.run(debug=True,host="0.0.0.0", port=5000)
