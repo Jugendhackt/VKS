@@ -41,7 +41,8 @@ def style():
 @app.route("/jahrgaenge-uebersicht")
 def all():
 	return render_template("overview.html")
-@app.route("/overview-9B")
+@app.route("/overview-9b")
 def test():
-	return render_template("overview-9b.html")
+	all = json.load(open("schuelerliste-9b.json"))
+	return render_template("overview-9b.html", liste=all)
 app.run(debug=True,host="0.0.0.0", port=5000)

@@ -51,3 +51,8 @@ a	{color:white;
 a:visited	{color:white}
 
 .button:hover	{background-color:#738e96;}
+
+table, th, td
+{
+	    border: 3px solid rgb(62%, 73%, 69%);
+}
