@@ -1,0 +1,53 @@
+/*#627c83= Untermenü
+#738e96= Algemeiner Hintergrund
+#9ebaa0= ausgewähtes
+#aa9d88= Hinweise */
+html {
+	position: relative;
+  min-height: 100%;
+}
+
+#header {
+	background-color:#627c83;
+	color:white;
+	text-align:center;
+	font-size:2em;
+	border-top-style:solid;
+	border-bottom-style:solid;
+	margin-bottom:0px;
+	margin-top:8px;
+	border-bottom-width:3px;
+	border-top-width:3px;
+}
+
+.button {
+	background-color:#9ebaa0;
+	color:white;
+	text-align:center;
+	font-size:1.3em;
+	border-top-style:solid;
+	border-bottom-style:solid;
+	margin-bottom:0px;
+	margin-top:8px;
+	border-bottom-width:3px;
+	border-top-width:3px;
+	display: inline-block;
+	width: 49.7%;
+}
+footer {
+	background-color:#9ebaa0;
+	color:white;
+	font-size:0.8em;
+	position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 65px;
+  width: 100%;
+  overflow: hidden;
+}
+a	{color:white;
+	text-decoration:none}
+
+a:visited	{color:white}
+
+.button:hover	{background-color:#738e96;}
