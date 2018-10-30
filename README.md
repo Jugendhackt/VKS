@@ -4,3 +4,4 @@
 - Das Sekretariat sieht eine Liste abwesnder Schüler
 - Ansicht aller Schüler in Klassenverbänden
 - Die Informationen werden in einer JSON-Datei gespeichert
+- Eine Mitteilungsfunktion für allgemeine Mitteilungen
