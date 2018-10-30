@@ -6,7 +6,9 @@ html {
 	position: relative;
   min-height: 100%;
 }
-
+div {
+	text-decoration: none;
+}
 #header {
 	background-color:#627c83;
 	color:white;
@@ -18,11 +20,13 @@ html {
 	margin-top:8px;
 	border-bottom-width:3px;
 	border-top-width:3px;
+	text-decoration: none;
 }
 
 .button {
 	background-color:#9ebaa0;
 	color:white;
+	text-decoration: none;
 	text-align:center;
 	font-size:1.3em;
 	border-top-style:solid;
@@ -34,6 +38,19 @@ html {
 	display: inline-block;
 	width: 49.7%;
 }
+
+.footer-higher {
+	background-color:#9ebaa0;
+	color:white;
+	font-size:0.8em;
+	position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 90px;
+  width: 100%;
+  overflow: hidden;
+	text-decoration:none;
+}
 footer {
 	background-color:#9ebaa0;
 	color:white;
@@ -44,11 +61,27 @@ footer {
   height: 65px;
   width: 100%;
   overflow: hidden;
-}
-a	{color:white;
-	text-decoration:none}
+	text-decoration:none;
 
-a:visited	{color:white}
+}
+
+}
+a:link	{
+	color:white;
+	text-decoration:none;
+}
+a:active {
+	color: white;
+	text-decoration: none;
+}
+a:hover {
+	color: white;
+	text-decoration: none;
+}
+a:visited	{
+	color: white;
+  text-decoration:none;
+}
 
 .button:hover	{background-color:#738e96;}
 

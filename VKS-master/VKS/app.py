@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, request, redirect
 import json
+import time
 
 app = Flask(__name__)
 
@@ -50,5 +51,30 @@ def overview():
 @app.route("/roadmap")
 def roadmap():
 	return render_template("roadmap.html")
+
+@app.route("/entry")
+def entry():
+	content = json.load(open("content.json"))
+	return render_template("entry.html", einträge=content)
+
+@app.route("/entry-create")
+def entry_editor():
+	return render_template("entry-editor.html")
+
+@app.route("/create_entry", methods={"POST"})
+def create_entry():
+	all_entrys = json.load(open("content.json"))
+	new_entry = {}
+	new_entry_values = list(request.form.values())
+	new_entry_key = list(request.form.keys())
+	for i in range(len(new_entry_key)):
+		value = new_entry_values[i]
+		key = new_entry_key[i]
+		new_entry.update({key: value})
+	new_entry.update({"date":time.strftime("%d. %m. %Y")})
+	new_entry.update({"time":time.strftime("%H") + ":" + time.strftime("%M")})
+	all_entrys.append(new_entry)
+	json.dump(all_entrys, open("content.json", "w"))
+	return redirect("/entry")
 
 app.run(debug=True,host="0.0.0.0", port=5000)
