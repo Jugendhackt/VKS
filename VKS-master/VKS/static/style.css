@@ -5,6 +5,7 @@
 html {
 	position: relative;
   min-height: 100%;
+	text-decoration: none;
 }
 div {
 	text-decoration: none;
@@ -21,6 +22,36 @@ div {
 	border-bottom-width:3px;
 	border-top-width:3px;
 	text-decoration: none;
+}
+#term_name {
+	background-color:#9ebaa0;
+	color:white;text-align:center;
+	font-size:1.3em;
+	border-top-style:solid;
+	border-bottom-style:solid;
+	display: inline-block;
+}
+
+#term_date {
+	background-color:#9ebaa0;
+	color:white;text-align:center;
+	font-size: 75%;
+	border-top-style:solid;
+	border-bottom-style:solid;
+	display: inline-block;
+}
+
+#term_desc {
+	background-color:#adc5af;
+	color:white;
+	text-align:center;
+	border-top-style:solid;
+	border-bottom-style:solid;
+	display: inline-block;
+}
+
+.white {
+	color: white;
 }
 
 .button {
@@ -39,30 +70,17 @@ div {
 	width: 49.7%;
 }
 
-.footer-higher {
-	background-color:#9ebaa0;
-	color:white;
-	font-size:0.8em;
-	position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 90px;
-  width: 100%;
-  overflow: hidden;
-	text-decoration:none;
-}
-footer {
-	background-color:#9ebaa0;
-	color:white;
-	font-size:0.8em;
-	position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 65px;
-  width: 100%;
-  overflow: hidden;
-	text-decoration:none;
 
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	background-color:#9ebaa0;
+	color:white;
+	font-size:0.8em;
+  width: 100%;
+  overflow: hidden;
+	text-decoration:none;
 }
 
 }
@@ -70,7 +88,7 @@ a:link	{
 	color:white;
 	text-decoration:none;
 }
-a:active {
+a {
 	color: white;
 	text-decoration: none;
 }
@@ -88,4 +106,9 @@ a:visited	{
 table, th, td
 {
 	    border: 3px solid rgb(62%, 73%, 69%);
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: 3;
 }

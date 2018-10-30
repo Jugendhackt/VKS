@@ -77,4 +77,31 @@ def create_entry():
 	json.dump(all_entrys, open("content.json", "w"))
 	return redirect("/entry")
 
+@app.route("/calendar")
+def calendar():
+	list = json.load(open("terms.json"))
+	return render_template("calendar.html", kalender=list)
+
+@app.route("/term-editor")
+def term_editor():
+	return render_template("term-editor.html")
+
+@app.route("/term-editor-processing", methods={"POST"})
+def term_editor_process():
+	all_terms = json.load(open("terms.json"))
+	new_term = {}
+	new_term_values = list(request.form.values())
+	new_term_keys = list(request.form.keys())
+	for i in range(len(new_term_values)):
+		value = new_term_values[i]
+		key = new_term_keys[i]
+		new_term.update({key:value})
+	new_term.update({"creation-date":time.strftime("%d. %m. %Y")})
+	new_term.update({"creation-time":time.strftime("%H") + ":" + time.strftime("%M")})
+	#author, creation-time and creation-date are just for traceabilty, if something is wrong
+	all_terms.append(new_term)
+	json.dump(all_terms, open("terms.json", "w"))
+	return redirect("/calendar")
+
+
 app.run(debug=True,host="0.0.0.0", port=5000)
