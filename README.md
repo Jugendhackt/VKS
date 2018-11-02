@@ -4,3 +4,5 @@
 - Das Sekretariat sieht eine Liste abwesnder Schüler
 - Die Informationen werden in einer JSON-Datei gespeichert
 - Es gibt eine Ansicht für Termine, Mitteilungen und Jahrgänge
+
+Development Versionen unter http://github.com/Chaostheorie/VKS-Development
