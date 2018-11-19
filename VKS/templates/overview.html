@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta name="overview" charset="utf-8">
-    <title>Übersicht</title>
+    <title>Overview</title>
     <link href="/static/style.css" rel="stylesheet"></link>
+    <link rel="shortcut icon" href="static/favicon.ico">
   </head>
   <body>
-		<div id="header">
+    <div id="header">
       <p>
-          <a href="/" >Anwesendheit</a>
+          <a href="/"> Presence </a>
       </p>
-		</div>
-
+    </div>
+{% for class in list %}
     <p>
-      <a href="/overview-9b" class="button"> 9B  </a>
-      <div class="button">  </div>
+      <a href="{{ class['location'] }}" class="button"> {{ class['name'] }}  </a>
     </p>
+{% endfor %}
   <footer>
   	<p>Contact information: <a href="https://github.com/Jugendhackt/VKS">Github</a></p>
-		<p>License: <a href="">GNU Affero General Public License v3.0</a>https://github.com/Jugendhackt/VKS/blob/master/LICENSE</p>
+		<p>License: <a href="https://github.com/Jugendhackt/VKS/blob/master/LICENSE">GNU Affero General Public License v3.0</a></p>
 	</footer>
   </body>
 </html>

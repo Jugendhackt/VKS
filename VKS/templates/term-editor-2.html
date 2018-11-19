@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html lang="de" dir="ltr">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>Term Editor</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="shortcut icon" href="static/favicon.ico">
   </head>
   <body>
     <div id="header">
       <p>
-          <a href="/" >Anwesenheit</a>
+          <a href="/" >Presence</a>
 			</p>
     </div>
     <form action="edit-term-processing" method="post">
 <p>
-    <input type="text" size="50" name="name" value="{{ term1["name"] }}" required>
+    <input type="text" size="50" name="name" value="{{ term["name"] }}" autofocus required>
 </p>
 <p>
-  <input type="date" size="50" name="date" value="{{ term1["date"] }}" required>
+  <input type="date" size="50" name="date" value="{{ term["date"] }}" required>
 </p>
 <p>
-    <input type="text" size="50" name="author" value="{{ term1["author"] }}" required>
+    <input type="text" size="50" name="author" value="{{ term["author"] }}" required>
 </p>
 <p>
-    <textarea name="content" rows="8" cols="71" required>{{ term1["content"] }}</textarea>
+    <textarea name="content" rows="8" cols="71" required>{{ term["content"] }}</textarea>
 </p>
 <p>
     <input type="submit"></input>

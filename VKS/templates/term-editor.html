@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html lang="de" dir="ltr">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Termin Editor</title>
+    <title>Term Editor</title>
     <link href="/static/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="static/favicon.ico">
   </head>
   <body>
 		<div id="header">
             <p>
-                <a href="/" >Anwesendheit</a>
+                <a href="/" >Presence</a>
             </p>
 		</div>
 <form action="term-editor-processing" method="post">
 <p>
-    <input type="text" size="50" name="name" placeholder="Titel" required>
+    <input type="text" size="50" name="name" placeholder="title" autofocus required>
 </p>
 <p>
-  <input type="date" size="50" name="date" required>
+  <input type="date" size="50" name="date" placeholder="date" required>
 </p>
 <p>
-    <input type="text" size="50" name="author" placeholder="Autor*in" required>
+    <input type="text" size="50" name="author" placeholder="author" required>
 </p>
 <p>
-    <textarea name="content" rows="8" cols="71" placeholder="Ihnalt" required></textarea>
+    <textarea name="content" rows="8" cols="71" placeholder="content" required></textarea>
 </p>
 <p>
     <input type="submit">
@@ -30,7 +31,7 @@
 </form>
   <footer>
   	<p>Contact information: <a href="https://github.com/Jugendhackt/VKS">Github</a></p>
-		<p>License: <a href="">GNU Affero General Public License v3.0</a>https://github.com/Jugendhackt/VKS/blob/master/LICENSE</p>
+		<p>License: <a href="https://github.com/Jugendhackt/VKS/blob/master/LICENSE">GNU Affero General Public License v3.0</a></p>
 	</footer>
   </body>
 </html>

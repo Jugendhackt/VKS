@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8"  author="CByte"></meta>
-    <!--<link rel="stylesheet" href="{{ url_for('static', filename='stylesheet5.1.css') }}">-->
-        <link href="/static/style.css" rel="stylesheet"></link>
-    <title>Test</title>
+    <link href="/static/style.css" rel="stylesheet"></link>
+    <title>Teacher view</title>
+    <link rel="shortcut icon" href="static/favicon.ico">
   </head>
   <body>
 		<div id="header">
             <p>
-                <a href="/" >Anwesendheit</a>
+                <a href="/" >Presence</a>
             </p>
 		</div>
     <p>
       <table>
 	<tr>
-		<th>Name</th>
-		<th>aktueller Status</th>
-		<th>Status ändern</th>
+		<th>name</th>
+		<th>status</th>
+		<th>status change</th>
 	</tr>
 <form action="change_state" method="post">
-{% for schueler in liste %}
+{% for person in list %}
             <tr>
-                <td>{{ schueler['name'] }}</td>
-                <td>{{ schueler['status'] }}</td>
-		<td><input type="checkbox" name="{{ schueler['name'] }}" {% if schueler['status'] == "anwesend"%}
+                <td>{{ person['name'] }}</td>
+                <td>{{ person['status'] }}</td>
+		<td><input type="checkbox" name="{{ person['name'] }}" {% if person['status'] == "present"%}
                                                 checked
                                         {% endif %}>
 		</td>
@@ -32,12 +32,12 @@
 {% endfor %}
 
        </table>
-<input type="submit" name="send" value="Senden"></input>
+<input type="submit" name="send" value="send"></input>
 </form>
     </p>
   <footer>
   	<p>Contact information: <a href="https://github.com/Jugendhackt/VKS">Github</a></p>
-		<p>License: <a href="">GNU Affero General Public License v3.0</a>https://github.com/Jugendhackt/VKS/blob/master/LICENSE</p>
+		<p>License: <a href="https://github.com/Jugendhackt/VKS/blob/master/LICENSE">GNU Affero General Public License v3.0</a></p>
 	</footer>
    </body>
 </html>

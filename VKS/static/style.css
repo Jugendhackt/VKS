@@ -1,10 +1,10 @@
-/*#627c83= Untermenü
-#738e96= Algemeiner Hintergrund
-#9ebaa0= ausgewähtes
-#aa9d88= Hinweise */
+/*#627c83= submenu
+#738e96= standard background
+#9ebaa0= choosen
+#aa9d88= Hints */
 html {
 	position: relative;
-  min-height: 100%;
+	min-height: 100%;
 	text-decoration: none;
 }
 div {
@@ -50,18 +50,6 @@ div {
 	display: inline-block;
 }
 
-.embedded-input {
-	background-color:#adc5af;
-	color:white;
-	text-align:center;
-	border-top-style:solid;
-	border-bottom-style:solid;
-}
-
-.white {
-	color: white;
-}
-
 .button {
 	background-color:#9ebaa0;
 	color:white;
@@ -78,6 +66,21 @@ div {
 	width: 49.7%;
 }
 
+.button:visited	{
+	color: white;
+  text-decoration:none;
+}
+
+.button:hover	{
+	background-color:#738e96;
+	color: white;
+	text-decoration: none;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
 
 footer {
 	position: fixed;
@@ -86,30 +89,10 @@ footer {
 	background-color:#9ebaa0;
 	color:white;
 	font-size:0.8em;
-  width: 100%;
-  overflow: hidden;
+	width: 100%;
+	overflow: hidden;
 	text-decoration:none;
 }
-
-}
-a:link	{
-	color:white;
-	text-decoration:none;
-}
-a {
-	color: white;
-	text-decoration: none;
-}
-a:hover {
-	color: white;
-	text-decoration: none;
-}
-a:visited	{
-	color: white;
-  text-decoration:none;
-}
-
-.button:hover	{background-color:#738e96;}
 
 table, th, td
 {
