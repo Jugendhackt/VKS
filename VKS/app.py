@@ -1,22 +1,12 @@
-from flask import Flask, render_template, jsonify, request, redirect, session, Response
-from flask_basicauth import BasicAuth
+from flask import Flask, render_template, request, redirect, session, Response
 from functools import wraps
 import json, time
 import flask
 app = Flask(__name__)
 
-app.config['BASIC_AUTH_USERNAME'] = 'user'
-app.config['BASIC_AUTH_PASSWORD'] = 'secret'
-basic_auth = BasicAuth(app)
-
 @app.route("/")
 def index():
 	return render_template("start.html")
-
-@app.route('/secret')
-@basic_auth.required
-def secret_view():
-    return render_template('secret.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
