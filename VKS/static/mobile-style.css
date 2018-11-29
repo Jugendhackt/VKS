@@ -1,0 +1,26 @@
+.button {
+	background-color: inherit;
+	color:white;
+	text-decoration: none;
+	text-align:center;
+	font-size:12vw;
+	border-top-style:solid;
+	border-bottom-style:solid;
+	margin-bottom:0px;
+	margin-top:0.7vw;
+	border-bottom-width:0.3vw;
+	border-top-width: 0.2vw;
+	display: inline-block;
+	width: 100vw;
+}
+
+.button:visited	{
+	color: white;
+  text-decoration:none;
+}
+
+.button:hover	{
+	background-color:#738e96;
+	color: white;
+	text-decoration: none;
+}

@@ -1,18 +1,140 @@
-from flask import Flask, render_template, request, redirect, session, Response
-from functools import wraps
+from flask import Flask, render_template, request, render_template_string, redirect, session, Response, g
 import json, time
 import flask
+import datetime
+from flask_sqlalchemy import SQLAlchemy
+from flask_user import *
+from flask_babelex import Babel
+
+# authentication
+class ConfigClass(object):
+
+    # Flask settings
+	SECRET_KEY = 'Mach sie aus Wachs und Gold, My Fairlady'
+
+    # Flask-SQLAlchemy settings
+	SQLALCHEMY_DATABASE_URI = 'sqlite:///VKS.sqlite'    # File-based SQL database
+	SQLALCHEMY_TRACK_MODIFICATIONS = False    # Avoids SQLAlchemy warning
+	# Flask-User settings
+	USER_APP_NAME = "VKS"
+	USER_ENABLE_EMAIL = False
+	USER_ENABLE_USERNAME = True
+	USER_ENABLE_CHANGE_USERNAME = True
+	USER_ENABLE_CHANGE_PASSWORD = True
+# init of apps
+
 app = Flask(__name__)
+app.config.from_object(__name__+'.ConfigClass')
+
+babel = Babel(app)
+
+db = SQLAlchemy(app)
+
+
+class User(db.Model, UserMixin):
+	__tablename__ = 'users'
+	id = db.Column(db.Integer, primary_key=True)
+	active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
+	username = db.Column(db.String(50, collation='NOCASE'), nullable=False, unique=True, server_default='')
+	password = db.Column(db.String(255), nullable=False, server_default='')
+
+    # User information
+	first_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')
+	last_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')
+
+	# Define the relationship to Role via UserRoles
+	roles = db.relationship('Role', secondary='user_roles')
+
+# Define the Role data-model
+class Role(db.Model):
+	__tablename__ = 'roles'
+	id = db.Column(db.Integer(), primary_key=True)
+	name = db.Column(db.String(50))
+
+# Define the UserRoles association table
+class UserRoles(db.Model):
+	__tablename__ = 'user_roles'
+	id = db.Column(db.Integer(), primary_key=True)
+	user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'))
+	role_id = db.Column(db.Integer(), db.ForeignKey('roles.id', ondelete='CASCADE'))
+
+# Setup Flask-User and specify the User data-model
+user_manager = UserManager(app, db, User)
+
+db.create_all()
+
+if not User.query.filter(User.username == 'admin').first():
+	user = User(
+		username = 'admin',
+		password = user_manager.hash_password('Password1'),
+    )
+	user.roles.append(Role(name='user'))
+	user.roles.append(Role(name='Admin'))
+	user.roles.append(Role(name='Agent'))
+	db.session.add(user)
+	db.session.commit()
+if not User.query.filter(User.username == 'Miller01').first():
+	user = User (
+	username ='Miller01',
+	password = user_manager.hash_password('Password1'),
+	)
+	user.roles.append(Role(name='user'))
+	user.roles.append(Role(name='teacher'))
+	db.session.add(user)
+	db.session.commit()
+
+if not User.query.filter(User.username == 'Schmidt01').first():
+	user = User(
+	username = 'Schmidt01',
+	password = user_manager.hash_password('Password1'),
+	)
+	user.roles.append(Role(name='user'))
+	user.roles.append(Role(name='secretary'))
+	db.session.add(user)
+	db.session.commit()
 
 @app.route("/")
 def index():
 	return render_template("start.html")
 
+@app.route("/start-mobile")
+def index_mobile():
+	return render_template("start-mobile.html")
+
+@app.route("/user-managment")
+@login_required
+def home_page():
+    return render_template_string("""
+            {% extends "flask_user_layout.html" %}
+            {% block content %}
+                <h2>{%trans%}Home page{%endtrans%}</h2>
+                <p><a href={{ url_for('user.login') }}>{%trans%}Sign in{%endtrans%}</a></p>
+                <p><a href={{ url_for('home_page') }}>{%trans%}Home Page{%endtrans%}</a> (accessible to anyone)</p>
+                <p><a href={{ url_for('user.logout') }}>{%trans%}Sign out{%endtrans%}</a></p>
+                <p><a href={{ url_for('user.change_password') }}>{%trans%}Change Password{%endtrans%}</a></p>
+            {% endblock %}
+            """)
+
+@app.route("/admin-managment")
+@roles_required('Admin')
+def admin_page():
+    return render_template_string("""
+            {% extends "flask_user_layout.html" %}
+            {% block content %}
+                <h2>{%trans%}Home page{%endtrans%}</h2>
+                <p><a href={{ url_for('user.register') }}>{%trans%}Register{%endtrans%}</a></p>
+                <p><a href={{ url_for('user.login') }}>{%trans%}Sign in{%endtrans%}</a></p>
+                <p><a href={{ url_for('home_page') }}>{%trans%}Home Page{%endtrans%}</a> (accessible to anyone)</p>
+                <p><a href={{ url_for('user.logout') }}>{%trans%}Sign out{%endtrans%}</a></p>
+                <p><a href={{ url_for('user.change_password') }}>{%trans%}Change Password{%endtrans%}</a></p>
+            {% endblock %}
+            """)
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template("404.html"), 404
 
 @app.route("/sek")
+@roles_required("user", ["secretary", "Admin"])
 def sek():
 	list_persons = list(json.load(open("list-9b.json")))
 	absence = []
@@ -23,6 +145,7 @@ def sek():
 	return render_template("seki-view.html", list=absence)
 
 @app.route("/teacher")
+@roles_required("user", ["teacher", "Admin"])
 def absence():
 	list_persons = json.load(open("list-9b.json"))
 	return render_template("teacher-view.html", list=list_persons)
@@ -40,11 +163,13 @@ def change():
 	return redirect("/teacher")
 
 @app.route("/classes-overview")
+@login_required
 def classes_overview():
 	all = list(json.load(open("classes_overview.json")))
 	return render_template("overview.html", list=all)
 
 @app.route("/overview-9b")
+@login_required
 def overview():
 	all = list(json.load(open("list-9b.json")))
 	return render_template("overview-9b.html", list=all)
@@ -54,11 +179,13 @@ def roadmap():
 	return render_template("roadmap.html")
 
 @app.route("/entry")
+@login_required
 def entry():
 	content = json.load(open("content.json"))
 	return render_template("entry.html", entrys=content)
 
 @app.route("/entry-create")
+@login_required
 def entry_editor():
 	return render_template("entry-editor.html")
 
@@ -84,10 +211,12 @@ def calendar():
 	return render_template("calendar.html", list=list_terms)
 
 @app.route("/term-editor")
+@login_required
 def term_editor():
 	return render_template("term-editor.html")
 
 @app.route("/term-editor-processing", methods={"POST"})
+@login_required
 def term_editor_process():
 	all_terms = json.load(open("terms.json"))
 	new_term = {}
@@ -105,6 +234,7 @@ def term_editor_process():
 	return redirect("/calendar")
 
 @app.route("/edit-term-load", methods={"POST"})
+@login_required
 def term_editor_2():
 	all_terms = list(json.load(open("terms.json")))
 	choosen_term = {}
@@ -121,6 +251,7 @@ def term_editor_2():
 	return render_template("/term-editor-2.html", term=choosen_term)
 
 @app.route("/edit-term-processing", methods={"POST"})
+@login_required
 def edit_term():
 	all_terms = json.load(open("terms.json"))
 	new_term = {}

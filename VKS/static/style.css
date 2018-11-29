@@ -14,7 +14,7 @@ div {
 	background-color:#627c83;
 	color:white;
 	text-align:center;
-	font-size:2em;
+	font-size:2.5vw;
 	border-top-style:solid;
 	border-bottom-style:solid;
 	margin-bottom:0px;
@@ -55,15 +55,15 @@ div {
 	color:white;
 	text-decoration: none;
 	text-align:center;
-	font-size:1.3em;
+	font-size:2vw;
 	border-top-style:solid;
 	border-bottom-style:solid;
 	margin-bottom:0px;
-	margin-top:8px;
-	border-bottom-width:3px;
-	border-top-width:3px;
+	margin-top:0.3vw;
+	border-bottom-width:0.3vw;
+	border-top-width: 0.2vw;
 	display: inline-block;
-	width: 49.7%;
+	width: 49vw;
 }
 
 .button:visited	{
@@ -88,15 +88,17 @@ footer {
 	bottom: 0;
 	background-color:#9ebaa0;
 	color:white;
-	font-size:0.8em;
-	width: 100%;
+	font-size:0.8vw;
+	width: 100vw;
 	overflow: hidden;
 	text-decoration:none;
 }
 
 table, th, td
 {
-	    border: 3px solid rgb(62%, 73%, 69%);
+	    border: 0.3vw solid rgb(62%, 73%, 69%);
+			font-size: 1vw:
+
 }
 
 .grid-container {

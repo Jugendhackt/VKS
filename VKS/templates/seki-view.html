@@ -17,11 +17,13 @@
 	<tr>
 		<th>Name</th>
 		<th>Status</th>
+    <th>Class</th>
 	</tr>
 {% for person in list %}
             <tr>
                 <td>{{ person['name'] }}</td>
                 <td>{{ person['status'] }}</td>
+                <td>{{ person ['class'] }}
             </tr>
 {% endfor %}
        </table>

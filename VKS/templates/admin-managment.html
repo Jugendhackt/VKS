@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" >
+	<head>
+		<meta charset="utf-8">
+		<link href="static/style.css" rel="stylesheet">
+		<link rel="shortcut icon" href="static/favicon.ico">
+	</head>
+	<body>
+
+		<div id="header">
+            <p>
+                <a href="/" >Presence</a>
+						</p>
+		</div>
+		                <h2>{%trans%}Home page{%endtrans%}</h2>
+                    <p><a href={{ url_for('user.register') }}>{%trans%}Register{%endtrans%}</a></p>
+                    <p><a href={{ url_for('user.login') }}>{%trans%}Sign in{%endtrans%}</a></p>
+                    <p><a href={{ url_for('home_page') }}>{%trans%}Home Page{%endtrans%}</a> (accessible to anyone)</p>
+                    <p><a href={{ url_for('admin_page') }}>{%trans%}Admin Page{%endtrans%}</a> (role_required: admin)</p>
+                    <p><a href={{ url_for('user.logout') }}>{%trans%}Sign out{%endtrans%}</a></p>
+                    <p><a href={{ url_for('user.change_password') }}>{%trans%}Change Password{%endtrans%}</a></p>
+  <footer>
+  	<p>Contact information: <a href="https://github.com/Jugendhackt/VKS">Github</a></p>
+		<p>License: <a href="https://github.com/Jugendhackt/VKS/blob/master/LICENSE">GNU Affero General Public License v3.0</a></p>
+		<p>Log in: <a href="{{ url_for('user.login') }}">Here</a></p>
+	</footer>
+	</body>
+</html>
