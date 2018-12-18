@@ -1,16 +1,15 @@
-from flask import Flask, render_template, request, render_template_string, redirect, session, Response, g
+from flask import Flask, render_template, request, \n
+ redirect, session, Response, g
 import json, time
 import flask
 import datetime
 from flask_sqlalchemy import SQLAlchemy
-from flask_user import *
-from flask_babelex import Babel
-
+from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
 # authentication
 class ConfigClass(object):
 
-    # Flask settings
-	SECRET_KEY = 'Mach sie aus Wachs und Gold, My Fairlady'
+    # Flask settings (unused but needed for session encryption)
+	SECRET_KEY = 'Mache sie aus Wachs und Gold, My Fairlady'
 
     # Flask-SQLAlchemy settings
 	SQLALCHEMY_DATABASE_URI = 'sqlite:///VKS.sqlite'    # File-based SQL database
@@ -25,8 +24,6 @@ class ConfigClass(object):
 
 app = Flask(__name__)
 app.config.from_object(__name__+'.ConfigClass')
-
-babel = Babel(app)
 
 db = SQLAlchemy(app)
 
@@ -187,7 +184,7 @@ def entry():
 @app.route("/entry-create")
 @login_required
 def entry_editor():
-	return render_template("entry-editor.html")
+	return render_template("templates/managment/entry-editor.html")
 
 @app.route("/create_entry", methods={"POST"})
 def create_entry():
@@ -213,7 +210,7 @@ def calendar():
 @app.route("/term-editor")
 @login_required
 def term_editor():
-	return render_template("term-editor.html")
+	return render_template("templates/managment/term-editor.html")
 
 @app.route("/term-editor-processing", methods={"POST"})
 @login_required
@@ -248,7 +245,7 @@ def term_editor_2():
 	old_term_number = all_terms.index(old_term)
 	all_terms.remove(old_term)
 	json.dump(all_terms, open("terms.json", "w"))
-	return render_template("/term-editor-2.html", term=choosen_term)
+	return render_template("/templates/managment/term-editor-2.html", term=choosen_term)
 
 @app.route("/edit-term-processing", methods={"POST"})
 @login_required
