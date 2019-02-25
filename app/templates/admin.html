@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block app_content %}
+{% if type == "action" %}
+  <p>
+    Method: {{ method }}
+    <br>
+    Username: {{ username }}
+    <hr>
+{% elif type == "view" %}
+  <p>
+    Diese Ansicht ist für eine Übersicht für den Admin mit Links zu den Tools etc.
+    <hr>
+    Last 5 Logins
+    <table class="table ">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Ip-Adresse</th>
+          <th scope="col">Nutzername</th>
+          <th scope="col">Zeit</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for login in logins %}
+            <tr>
+              <td scope="row">{{ login.ip }}</td>
+              <td>{{ login.name }}</td>
+              <td>{{ login.time }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endif %}
+{% endblock %}

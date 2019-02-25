@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block app_content %}
+{% if error == "404" %}
+  <p>
+    <h2>Error: 404 Seite nicht gefunden</h2>
+  </p>
+  <p>
+    Die angefragte Seite ist zurzeit nicht verfügbar oder sie existiert nicht.
+    <br><a href="{{ return_url }}">Letzte Seite</a>
+    <br>Bei nachfragen wenden sie sich an den Systemadministrator:
+    <a href="{{ url_for("report") }}"> Formular</a></p>
+{% elif error == "403" %}
+  <p>
+    <h2>Error: 403 Zugriff verweigert</h2>
+  </p>
+  <p>
+    Sie haben keine Berechtigung zu dieser Http Anfrage
+    <br><a href="{{ return_url }}">Letzte Seite</a>
+    <br>Bei nachfragen wenden sie sich an den Systemadministrator:
+    <a href="{{ url_for("report") }}"> Formular</a></p>
+{% else %}
+  <p>
+    <h2>{{er}} Error</h2>
+  </p>
+  <p>
+    Ein Fehler ist unterlaufen.
+    <br><a href="{{ return_url }}">Letzte Seite</a>
+    <br>Bei nachfragen wenden sie sich an den Systemadministrator:
+    <a href="{{ url_for("report") }}"> Formular</a></p>
+{% endif %}
+{% endblock %}

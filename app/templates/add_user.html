@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<p>
+  <form action="add-user" method="post">
+  <div class="form-group">
+    <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+  </div>
+  <div class="form-group">
+    <input type="text" name="password" id="password" class="form-control" placeholder="Password" required>
+  </div>
+    <div class="form-row">
+      <div class="col">
+        <input type="text" class="form-control" placeholder="First name" id="first_name" name="first_name">
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Last name" id="last_name" name="last_name">
+      </div>
+  </div>
+  <div class="form-group">
+    <label for="roles">Roles:</label>
+    <select multiple class="form-control" id="roles" name="roles" multiple>
+      {% for role in roles %}
+      <option value="{{ role.name }}" >{{ role.name }}</option>
+      {% endfor %}
+    </select>
+
+  </div>
+
+  <button type="submit" class="btn btn-primary">Add User</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block app_content %}
+<table class="table">
+  <thead class="thread-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Ip-Adresse</th>
+      <th scope="col">Zeit</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for login in logins %}
+    <tr>
+      <td scope="row">{{ login.name }}</td>
+      <td>{{ login.ip }}</td>
+      <td>{{ login.time }}
+    </tr>
+{% endfor %}
+  </tbody>
+<tfoot class="tfoot-dark">
+      <td><a  href="/logins/{{ current_page - 1 }}" class="link">Vorherige Seite</a></td>
+      <td>
+        {% if not pages %}
+        {% else %}
+          <form action="/action" method="post">
+            <select onchange="document.forms.foobar.submit()" name="page">
+              {% for i in pages %}
+                {% if i == 0 %}
+                  <option selected>pages["page_number"][i]</option>
+                {% endif %}
+                {% if i > 0 %}
+                  <option>pages["page_number"][i]</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </form>
+        {% endif %}
+      </td>
+      <td><a href= "/logins/{{ current_page + 1 }}" class="link">Nächste Seite</a></td>
+  </table>
+
+{% endblock %}

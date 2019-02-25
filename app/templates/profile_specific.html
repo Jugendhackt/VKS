@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block app_content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <img src="{{ user.avatar(128) }}" alt="avatar" class="img-responsive" />
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <h4>
+                            {{ user.username }}</h4>
+                        <p>
+                            Name: {{ user.last_name }}, {{ user.first_name }}
+                            <br />
+                            Zuletzt gesehen:
+                            {% if user.last_seen == None %}
+                              Unbekant
+                            {% else %}
+                              {{ user.last_seen }}
+                            {% endif %}
+                            <br />
+                            {% if user.level == "teacher" %}
+                              Lehrer
+                                {% if user.class == "None" %}
+                                {% else %}
+                                 der Klasse {{ user.class }}
+                                {% endif %}
+                              <br>
+                            {% elif user.level == "pupil" %}
+                              Klasse {{ user.class }}
+                              <br>
+                            {% elif user.level == "secretary" %}
+                              Sekretariat
+                              <br>
+                            {% elif user.level == "headmaster" %}
+                              Schulleitung
+                              <br>
+                            {% else %}
+                              {{ user.level_specific }}
+                              <br>
+                            {% endif %}
+                            {% if not user.description %}
+                            {% else %}
+                              {{ user.description }}
+                            {% endif %}
+
+{% block admin_tools %}
+<!-- Admin tools button -->
+                        {% if logged_level == "admin" %}
+                          <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Admin Werkzeuge
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Profil bearbeiten</a>
+                            <form action="/admin">
+                              <input type="hidden" id="action" name="action" value="delete">
+                              <input type="hiden" name="username" value="{{ user.username }}">
+                              <input type="submit">
+                              <a class="dropdown-item" href="#">Delete Profile</a>
+                            </form>
+                            <form action="/admin">
+                              <input type="hidden" name="action" value="edit">
+                              <input type="hidden" name="username" value="{{ user.username }}">
+                              <input type="submit">
+                              <a class="dropdown-item" href="#">Profil bearbeiten</a>
+                            </form>
+                            <form action="/admin">
+                              <input type="hidden" id="action" name="action" value="set_inactive">
+                              <input type="hidden" name="username" value="{{ user.username }}">
+                              <input type="submit">
+                              <a class="dropdown-item" href="#">Profil Deaktivieren</a>
+                            </form>
+                          </div>
+                        </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% endblock %}

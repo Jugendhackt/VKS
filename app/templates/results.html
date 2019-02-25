@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block app_content %}
+    {% if result_type=="term" or "broadcast" or "profile" %}
+    <p>
+      {{ text }}
+    </p>
+    {% elif result_type=="" %}
+      <p>
+        <div class="alert alert-danger" role="alert">
+          <p><strong>Error 01:</strong> Bad request type for search</p>
+        </div>
+      </p>
+    {% endif %}
+      <table class="table">
+          {% if result_type=="term" %}
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Tag</th>
+              <th scope="col">Beschreibung</th>
+            </tr>
+            </thead>
+            {% for result in results %}
+            <tbody>
+              <tr>
+                <td scope="row">{{ result.name }}</td>
+                <td>{{ result.destination_day }}</td>
+                {% if result.description == None %}
+                  <td> Nicht Vorhanden </td>
+                {% else %}
+                  <td> {{ result.description }} </td>
+                {% endif %}
+                </tr>
+            </tbody>
+            {% endfor %}
+          {% endif %}
+          {% if result_type == "broadcast" %}
+          <thead class="thead-dark">
+            <th scope="col">Name</th>
+            <th scope="col">Ersteller</th>
+            <th scope="col">Ihnalt</th>
+          </thead>
+            {% for result in results %}
+            <tbody>
+              <tr>
+                <td scope="row"> {{ result.name }} </td>
+                <td> <a href="/profile/{{ result.author }}" class="link"> {{ result.author}} </a></td>
+                <td> {{ result.content }} </td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          {% endif %}
+          {% if result_type == "profile" %}
+            {% for i in range(len) %}
+              <table>
+                <tr valign="top">
+                  <td><a href="/profile/{{ results[i]["username"] }}"><img src="{{ results[i]["avatar_url"] }}" class="img-thumbnail" alt="Avatar of {{ results[i]["username"] }}" ></a></td>
+                  <td><a href="/profile/{{ results[i]["username"] }}" class="badge badge-light">{{ results[i]["username"] }} </a><br>{{ results[i]["last_name"] }}, {{ results[i]["first_name"] }}</td>
+                </tr>
+              </table>
+              {% endfor %}
+          {% endif %}
+      </table>
+{% endblock %}

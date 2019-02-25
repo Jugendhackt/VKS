@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block app_content %}
+<p>
+This is the Start page. Here you can go and send post requests. The main page is
+normaly the content page with a short introduction to the visitor and a
+presentation of the site content or something like this.
+</p>
+{% if text is defined %}
+<hr>
+<p>
+{{ text }}
+</p>
+{% endif %}
+{% endblock %}

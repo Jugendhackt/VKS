@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block app_content %}
+<p>
+ Die Profil Seite ist nur zum Testen gedacht und als Demo wie man über die
+ Datenbank in Kombination mit elasticsearch suchen kann. Diese Funktion kann
+ später noch für anderes verwendet werden.
+  <hr>
+  <form  action="/profile" method="post">
+    <div class="form-group">
+      <input type="hidden" name="type" value="profile">
+      <input type="text" name="search" placeholder="Suchbegriff">
+      <input type="submit" value="Los">
+    </div>
+  </form>
+{% endblock %}

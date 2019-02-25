@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block app_content %}
+
+    <p>
+      {{ text }}
+    </p>
+    <p>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Ersteller</th>
+            <th scope="col">Ihnalt</th>
+            <th scope="col">Beschreibung</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for result in results %}
+        <tr>
+          <td> {{ result.name }} </td>
+          <td> {{ result.type }} </td>
+          <td> {{ result.content }} </td>
+            {% if result.description == None %}
+              <td> Nicht Vorhanden </td>
+            {% else %}
+              <td> {{ result.description }} </td>
+            {% endif %}
+        </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% for result in results %}
+        {{ result.author_id }}
+      {% endfor %}
+      </p>
+{% endblock %}
