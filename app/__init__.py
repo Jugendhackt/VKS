@@ -5,7 +5,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from elasticsearch import Elasticsearch
-from flask_user import UserManager
 from flask_babelex import Babel
 
 # Init Flask
@@ -23,10 +22,20 @@ babel = Babel(app)
 # Initialize other things
 from app import models
 
+# Initialize Elasticsearch and reindex indexes
 app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']])
 print("sucessfully Initialized")
+from app.models import User, entrys, terms
+User.reindex()
+entrys.reindex()
+terms.reindex()
 
+# Init search and mixin modules
 from app import search, mixin
+
+# init custom usermanager
+from app.custom import CustomUserManager
+user_manager = CustomUserManager(app, db, User)
 
 # the db_session is a custom sessions for the case a modified session is needed
 # in use for a custom search part with pure SQLAlchemy for the session
@@ -36,4 +45,5 @@ db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
 
+# Initialize Routes
 from app import routes

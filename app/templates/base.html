@@ -1,5 +1,5 @@
 {% block head %}
-  <title>VKS - C-Recode</title>
+  <title>VKS</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -9,6 +9,21 @@
   <link rel="stylesheet" href="/static/custom-style.css">
   <link rel="shortcut icon" href="/static/favicon.ico">
 {% endblock %}
+
+{% block advanced_head %}{% endblock %}
+
+{% block custom_style %}
+    <style>
+        hr { border-color: #cccccc; margin: 0; }
+        .no-margins { margin: 0px; }
+        .with-margins { margin: 10px; }
+        .col-centered { float: none; margin: 0 auto; }
+    </style>
+{% endblock %}
+
+{% block extra_css %}{% endblock %}
+
+{% block extra_js %}{% endblock %}
 
 {% block navbar %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top rounded">
@@ -67,7 +82,9 @@
         </div>
       </li>
       <li class="nav-item">
-      <a class="nav-link disabled" href="{{ url_for("about_us") }}" >About Us</a>
+        {% if config["ABOUT_US"] == True %}
+        <a class="nav-link disabled" href="{{ url_for("about_us") }}" >About Us</a>
+        {% endif %}
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">
@@ -106,4 +123,12 @@
   {% block app_content %}{% endblock %}
   </div>
 </div>
+{% endblock %}
+
+{% block footer %}
+    <hr class="no-margins"/>
+    <div id="footer-div" class="clearfix with-margins">
+        <div class="pull-left">{{ user_manager.USER_APP_NAME }} {{ config["APP_VERSION"] }}</div>
+        <div class="pull-right">&copy; 2019 VKS </div>
+    </div>
 {% endblock %}

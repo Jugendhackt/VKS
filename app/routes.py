@@ -2,12 +2,10 @@ from flask import *
 from app import *
 from app.mixin import *
 from app.models import *
-from flask_user import *
 from flask_sqlalchemy import *
 import time, datetime
-
-#setup user manager
-user_manager = UserManager(app, db, User)
+from flask_user import roles_required, login_required, user_logged_in, \
+    current_user
 
 # add admin for testing if not added yet
 if not User.query.filter(User.username == "Admin").all():
@@ -85,21 +83,24 @@ def add_user():
         return render_template("add_user.html", roles=roles_all)
 
     if request.method == "POST":
-        multiselect = request.form.getlist("roles")
-        user = User(
-        username = request.form["username"],
-        password = user_manager.hash_password(request.form["password"]),
-        first_name = request.form["first_name"],
-        last_name = request.form["last_name"],
-        )
-        user.roles = []
-        for i in range(len(multiselect)):
-            user.roles.append(Role(name=multiselect[i]))
-            print(str(i) + ": " + multiselect[i])
-        db.session.add(user)
-        db.session.commit()
-        flash("Add username: " + request.form["username"] + " sucessfully")
-        return redirect("/add-user")
+        try:
+            multiselect = request.form.getlist("roles")
+            user = User(
+            username = request.form["username"],
+            password = user_manager.hash_password(request.form["password"]),
+            first_name = request.form["first_name"],
+            last_name = request.form["last_name"],
+            )
+            user.roles = []
+            for i in range(len(multiselect)):
+                user.roles.append(Role(name=multiselect[i]))
+            db_session.add(user)
+            db_session.commit()
+            flash("Add username: " + request.form["username"] + " sucessfully")
+            return redirect("/add-user")
+        except:
+            flash("Error 500: Internal Server Error")
+            return redirect("/add-user")
 
 @app.route("/add-term", methods=["POST", "GET"])
 @roles_required("Admin")
@@ -350,11 +351,10 @@ def _track_logins(sender, user, **extra):
 
 # Errorhandler pages
 # Use 500 errorhandler for security
+# Known Error is registration object transaction caused by flask user
 @app.errorhandler(500)
 def internal_server_error(e):
-    er = "Serverfehler"
-    return_url = request.referrer or "/"
-    return render_template("error.html", return_url=return_url, error=er)
+    return redirect("/")
 
 @app.errorhandler(404)
 def page_not_found(e):
